@@ -3,12 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kululu - L'Assistant IA Pour Dirigeants</title>
-    <meta name="description" content="Votre assistant IA personnel sur Telegram. Il pense, rappelle et rédige pour vous.">
+    <title>Kululu - L'Assistant IA Pour Dirigeants Débordés</title>
+    <meta name="description" content="Arrêtez de tout retenir. Kululu pense, rappelle et rédige pour vous. 24/7 sur Telegram.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --yellow: #f7d731;
+            --yellow-light: #fff9e0;
+            --yellow-dark: #d4b800;
+            --black: #0a0a0a;
+            --gray-900: #1a1a1a;
+            --gray-600: #666;
+            --gray-400: #999;
+            --gray-200: #e5e5e5;
+            --gray-100: #f5f5f5;
+            --bg: #fafafa;
+            --green: #22c55e;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -21,10 +35,11 @@
         
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #fafafa;
-            color: #1a1a1a;
+            background: var(--bg);
+            color: var(--gray-900);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
         
         /* NAV */
@@ -33,46 +48,90 @@
             top: 0;
             left: 0;
             right: 0;
-            padding: 20px 32px;
+            padding: 16px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(250,250,250,0.8);
+            background: rgba(250,250,250,0.85);
             backdrop-filter: blur(20px);
         }
+        
         .nav-logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            color: #1a1a1a;
+            color: var(--gray-900);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
-        .nav-logo span {
-            font-size: 1.8rem;
+        
+        .nav-glasses {
+            width: 32px;
+            height: 16px;
+            position: relative;
         }
+        
+        .nav-lens {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--yellow);
+            border-radius: 50%;
+        }
+        
+        .nav-lens::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            border: 1.5px solid var(--yellow);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .nav-lens-l { left: 0; }
+        .nav-lens-r { right: 0; }
+        
+        .nav-bridge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 2px;
+            background: var(--yellow);
+        }
+        
         .nav-cta {
-            padding: 12px 28px;
-            border: 2px solid #1a1a1a;
+            padding: 10px 24px;
+            border: 2px solid var(--gray-900);
             border-radius: 100px;
             text-decoration: none;
             font-weight: 600;
-            color: #1a1a1a;
-            font-size: 0.95rem;
+            color: var(--gray-900);
+            font-size: 0.9rem;
             transition: all 0.2s;
         }
+        
         .nav-cta:hover {
-            background: #1a1a1a;
+            background: var(--gray-900);
             color: #fff;
+        }
+        
+        /* CONTAINER */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
         
         /* SECTIONS */
         section {
-            padding: 120px 32px;
-            max-width: 900px;
-            margin: 0 auto;
+            padding: 100px 0;
         }
         
         .hero-section {
@@ -80,275 +139,415 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-top: 100px;
+            padding-top: 80px;
+            padding-bottom: 60px;
         }
         
-        /* HERO TEXT STYLE */
+        /* TYPOGRAPHY */
         .big-text {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 700;
-            line-height: 1.15;
+            font-size: clamp(2.2rem, 7vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
             letter-spacing: -0.03em;
-            margin-bottom: 48px;
+            margin-bottom: 32px;
         }
         
         .big-text .emoji {
             display: inline-block;
-            font-size: 0.8em;
+            font-size: 0.85em;
             vertical-align: middle;
-            margin: 0 4px;
+            margin: 0 2px;
         }
         
-        .big-text .highlight {
-            color: #888;
+        .big-text .muted {
+            color: var(--gray-400);
         }
         
         .big-text .yellow {
-            background: linear-gradient(135deg, #f7d731 0%, #ffa500 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--yellow-dark);
         }
         
-        /* MEDIUM TEXT */
+        .big-text .underline-yellow {
+            text-decoration: underline;
+            text-decoration-color: var(--yellow);
+            text-underline-offset: 4px;
+            text-decoration-thickness: 4px;
+        }
+        
         .medium-text {
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-size: clamp(1.3rem, 3.5vw, 1.8rem);
             font-weight: 600;
-            line-height: 1.4;
-            letter-spacing: -0.02em;
-            margin-bottom: 32px;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+            margin-bottom: 24px;
         }
         
         .medium-text .emoji {
             display: inline-block;
             font-size: 0.9em;
             vertical-align: middle;
-            margin: 0 4px;
+            margin: 0 2px;
         }
         
-        /* BODY TEXT */
         .body-text {
-            font-size: 1.25rem;
-            color: #666;
+            font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+            color: var(--gray-600);
             line-height: 1.8;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
         
-        /* CTA BUTTON */
+        /* KULULU GLASSES - HERO */
+        .hero-glasses {
+            width: 120px;
+            height: 60px;
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        .hero-lens {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--yellow);
+            border-radius: 50%;
+            background: var(--yellow-light);
+        }
+        
+        .hero-lens::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 28px;
+            height: 28px;
+            border: 3px solid var(--yellow);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 6s linear infinite;
+        }
+        
+        .hero-lens::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--yellow);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 4s linear infinite reverse;
+        }
+        
+        .hero-lens-l { left: 0; top: 6px; }
+        .hero-lens-r { right: 0; top: 6px; }
+        
+        .hero-bridge {
+            position: absolute;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 28px;
+            height: 4px;
+            background: var(--yellow);
+            border-radius: 2px;
+        }
+        
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* CTA */
         .cta-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 18px 36px;
-            background: #1a1a1a;
+            padding: 16px 32px;
+            background: var(--gray-900);
             color: #fff;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             border-radius: 100px;
-            transition: all 0.3s;
-            margin-top: 24px;
+            transition: all 0.2s;
+            margin-top: 16px;
         }
+        
         .cta-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: scale(1.03);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.12);
         }
+        
         .cta-btn .arrow {
             transition: transform 0.2s;
         }
+        
         .cta-btn:hover .arrow {
             transform: translateX(4px);
         }
         
-        /* DIVIDER */
-        .divider {
-            width: 60px;
-            height: 4px;
-            background: #e5e5e5;
-            border-radius: 2px;
-            margin: 80px 0;
+        .cta-btn.yellow-btn {
+            background: var(--yellow);
+            color: var(--gray-900);
         }
         
-        /* SECTION LABEL */
-        .section-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #999;
-            margin-bottom: 24px;
+        .cta-btn.yellow-btn:hover {
+            box-shadow: 0 16px 40px rgba(247,215,49,0.3);
         }
         
-        /* FEATURES SECTION */
-        .features-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 64px;
-            margin-top: 64px;
+        /* HIGHLIGHT BOX */
+        .highlight-box {
+            background: var(--yellow-light);
+            border-left: 4px solid var(--yellow);
+            padding: 24px 28px;
+            border-radius: 0 12px 12px 0;
+            margin: 32px 0;
         }
         
-        .feature-item {
+        .highlight-box p {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--gray-900);
+            margin: 0;
+        }
+        
+        /* PAIN ITEMS */
+        .pain-list {
+            margin: 40px 0;
+        }
+        
+        .pain-item {
             display: flex;
+            gap: 16px;
             align-items: flex-start;
-            gap: 24px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray-200);
         }
         
-        .feature-icon {
-            font-size: 2.5rem;
+        .pain-item:last-child {
+            border: none;
+        }
+        
+        .pain-icon {
+            font-size: 1.5rem;
             flex-shrink: 0;
         }
         
-        .feature-content h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
+        .pain-item p {
+            font-size: 1.1rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin: 0;
         }
         
-        .feature-content p {
-            font-size: 1.1rem;
-            color: #666;
-            line-height: 1.7;
+        .pain-item strong {
+            color: var(--gray-900);
         }
         
         /* DEMO PHONE */
         .demo-section {
-            padding: 80px 32px;
             background: #fff;
-            border-radius: 32px;
-            margin: 80px auto;
-            max-width: 900px;
-            box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+            border-radius: 24px;
+            padding: 48px 32px;
+            margin: 48px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
         }
         
         .phone-mockup {
-            max-width: 380px;
-            margin: 48px auto 0;
-            background: #f5f5f5;
-            border-radius: 40px;
-            padding: 12px;
+            max-width: 340px;
+            margin: 32px auto 0;
+            background: var(--gray-100);
+            border-radius: 36px;
+            padding: 10px;
         }
         
         .phone-screen {
             background: #fff;
-            border-radius: 32px;
-            padding: 24px;
-            min-height: 450px;
+            border-radius: 28px;
+            padding: 20px;
+            min-height: 400px;
         }
         
         .phone-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #f0f0f0;
-            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 16px;
         }
         
         .phone-avatar {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #f7d731, #ffa500);
+            width: 40px;
+            height: 40px;
+            background: var(--yellow);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            position: relative;
         }
+        
+        .phone-avatar::before,
+        .phone-avatar::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border: 2px solid var(--gray-900);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .phone-avatar::before { left: 6px; }
+        .phone-avatar::after { right: 6px; }
         
         .phone-name {
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         
         .phone-status {
-            font-size: 0.85rem;
-            color: #22c55e;
+            font-size: 0.8rem;
+            color: var(--green);
         }
         
         .chat-messages {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
         
         .chat-msg {
             max-width: 85%;
             padding: 12px 16px;
-            border-radius: 20px;
-            font-size: 0.95rem;
+            border-radius: 18px;
+            font-size: 0.9rem;
             line-height: 1.5;
         }
         
         .chat-msg.user {
-            background: #1a1a1a;
+            background: var(--gray-900);
             color: #fff;
             align-self: flex-end;
             border-bottom-right-radius: 4px;
         }
         
         .chat-msg.bot {
-            background: #f5f5f5;
-            color: #1a1a1a;
+            background: var(--gray-100);
+            color: var(--gray-900);
             align-self: flex-start;
             border-bottom-left-radius: 4px;
+        }
+        
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            gap: 40px;
+            margin-top: 48px;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--yellow-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-content h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .feature-content p {
+            font-size: 1rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin: 0;
         }
         
         /* PRICING */
         .pricing-card {
             background: #fff;
-            border-radius: 32px;
-            padding: 56px;
+            border-radius: 24px;
+            padding: 48px 40px;
             text-align: center;
-            box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
-            margin-top: 48px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--yellow);
         }
         
         .pricing-amount {
-            font-size: 5rem;
+            font-size: clamp(3.5rem, 10vw, 5rem);
             font-weight: 800;
             letter-spacing: -0.03em;
         }
         
         .pricing-period {
-            font-size: 1.5rem;
-            color: #888;
+            font-size: 1.3rem;
+            color: var(--gray-400);
             font-weight: 500;
         }
         
         .pricing-subtitle {
-            color: #888;
-            margin: 16px 0 40px;
+            color: var(--gray-400);
+            margin: 12px 0 32px;
+            font-size: 0.95rem;
         }
         
         .pricing-features {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            gap: 12px 24px;
             text-align: left;
-            max-width: 500px;
-            margin: 0 auto 40px;
+            max-width: 400px;
+            margin: 0 auto 32px;
         }
         
         .pricing-feature {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1rem;
+            gap: 8px;
+            font-size: 0.95rem;
         }
         
         .pricing-feature .check {
-            color: #22c55e;
-            font-size: 1.2rem;
+            color: var(--green);
+            font-weight: bold;
         }
         
-        /* SIGNUP FORM */
+        /* SIGNUP */
         .signup-section {
             background: #fff;
-            border-radius: 32px;
-            padding: 56px;
-            max-width: 500px;
-            margin: 80px auto;
-            box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 480px;
+            margin: 60px auto;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
             display: none;
         }
         
@@ -358,62 +557,62 @@
         
         .signup-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
         }
         
         .signup-header h2 {
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .signup-header p {
-            color: #888;
+            color: var(--gray-400);
+            font-size: 0.95rem;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         
         .form-group label {
             display: block;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 8px;
-            color: #1a1a1a;
+            margin-bottom: 6px;
         }
         
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 16px 20px;
-            border: 2px solid #e5e5e5;
-            border-radius: 12px;
+            padding: 14px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 10px;
             font-size: 1rem;
             font-family: inherit;
             transition: all 0.2s;
-            background: #fafafa;
+            background: var(--bg);
         }
         
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #1a1a1a;
+            border-color: var(--yellow);
             background: #fff;
         }
         
         .form-group input::placeholder {
-            color: #aaa;
+            color: var(--gray-400);
         }
         
         .form-submit {
             width: 100%;
-            padding: 18px;
-            background: #1a1a1a;
+            padding: 16px;
+            background: var(--gray-900);
             color: #fff;
             border: none;
             border-radius: 100px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
@@ -423,12 +622,12 @@
         
         .form-submit:hover {
             transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
         
         .form-success {
             text-align: center;
-            padding: 40px 20px;
+            padding: 32px 16px;
             display: none;
         }
         
@@ -437,50 +636,58 @@
         }
         
         .form-success .icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
+            font-size: 3rem;
+            margin-bottom: 16px;
         }
         
         .form-success h3 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
         
         .form-success p {
-            color: #888;
+            color: var(--gray-400);
         }
         
         /* FAQ */
         .faq-grid {
-            display: grid;
-            gap: 32px;
-            margin-top: 48px;
+            margin-top: 40px;
+        }
+        
+        .faq-item {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .faq-item:last-child {
+            border: none;
         }
         
         .faq-item h3 {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 8px;
         }
         
         .faq-item p {
-            color: #666;
-            font-size: 1.05rem;
+            color: var(--gray-600);
+            font-size: 1rem;
             line-height: 1.7;
+            margin: 0;
         }
         
         /* FOOTER */
         footer {
-            padding: 60px 32px;
+            padding: 48px 24px;
             text-align: center;
-            border-top: 1px solid #e5e5e5;
+            border-top: 1px solid var(--gray-200);
         }
         
         .footer-logo {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -488,20 +695,20 @@
         }
         
         footer p {
-            font-size: 0.9rem;
-            color: #888;
+            font-size: 0.85rem;
+            color: var(--gray-400);
         }
         
         footer a {
-            color: #1a1a1a;
+            color: var(--gray-900);
             text-decoration: none;
         }
         
         /* ANIMATIONS */
         .fade-up {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(24px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .fade-up.visible {
@@ -510,23 +717,97 @@
         }
         
         /* RESPONSIVE */
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
+            nav {
+                padding: 14px 20px;
+            }
+            
+            .nav-logo {
+                font-size: 1.2rem;
+            }
+            
+            .nav-cta {
+                padding: 8px 18px;
+                font-size: 0.85rem;
+            }
+            
             section {
-                padding: 80px 24px;
+                padding: 72px 0;
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero-section {
+                padding-top: 72px;
+                min-height: auto;
+            }
+            
+            .hero-glasses {
+                width: 90px;
+                height: 48px;
+                margin-bottom: 32px;
+            }
+            
+            .hero-lens {
+                width: 36px;
+                height: 36px;
+                border-width: 3px;
+            }
+            
+            .hero-lens::before {
+                width: 20px;
+                height: 20px;
+                border-width: 2px;
+            }
+            
+            .hero-lens::after {
+                width: 8px;
+                height: 8px;
+            }
+            
+            .hero-bridge {
+                width: 20px;
+                height: 3px;
+                top: 22px;
+            }
+            
+            .cta-btn {
+                padding: 14px 28px;
+                font-size: 0.95rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .demo-section {
+                padding: 32px 20px;
+                margin: 32px -20px;
+                border-radius: 0;
+            }
+            
+            .phone-mockup {
+                max-width: 100%;
+            }
+            
+            .pricing-card {
+                padding: 36px 24px;
             }
             
             .pricing-features {
                 grid-template-columns: 1fr;
+                gap: 10px;
             }
             
-            .pricing-card,
             .signup-section {
-                padding: 40px 24px;
+                padding: 36px 24px;
+                margin: 40px 0;
+                border-radius: 20px;
             }
             
-            .demo-section {
-                padding: 48px 24px;
-                margin: 48px 16px;
+            .feature-item {
+                flex-direction: column;
+                gap: 12px;
             }
         }
     </style>
@@ -534,155 +815,144 @@
 <body>
     <nav>
         <a href="#" class="nav-logo">
-            <span>🔮</span> Kululu
+            <div class="nav-glasses">
+                <div class="nav-lens nav-lens-l"></div>
+                <div class="nav-lens nav-lens-r"></div>
+                <div class="nav-bridge"></div>
+            </div>
+            Kululu
         </a>
         <a href="#signup" class="nav-cta" onclick="showSignup(event)">Commencer</a>
     </nav>
     
     <!-- HERO -->
     <section class="hero-section">
-        <p class="big-text fade-up">
-            Vous êtes dirigeant <span class="emoji">👔</span><br>
-            pas super-héros.
-        </p>
-        <p class="medium-text fade-up">
-            Arrêtez de tout <span class="emoji">🧠</span> retenir.<br>
-            Kululu pense <span class="emoji">💭</span> pour vous.
-        </p>
-        <p class="body-text fade-up">
-            Un assistant IA personnel sur Telegram.<br>
-            Disponible 24/7. Il n'oublie jamais rien.
-        </p>
-        <a href="#signup" class="cta-btn fade-up" onclick="showSignup(event)">
-            Activer mon assistant
-            <span class="arrow">→</span>
-        </a>
+        <div class="container">
+            <div class="hero-glasses fade-up">
+                <div class="hero-lens hero-lens-l"></div>
+                <div class="hero-lens hero-lens-r"></div>
+                <div class="hero-bridge"></div>
+            </div>
+            <h1 class="big-text fade-up">
+                Arrêtez de tout <span class="emoji">🧠</span> retenir.<br>
+                <span class="underline-yellow">Kululu pense pour vous.</span>
+            </h1>
+            <p class="body-text fade-up">
+                L'assistant IA qui mémorise, rappelle et rédige à votre place.<br>
+                Disponible 24/7 sur Telegram.
+            </p>
+            <a href="#signup" class="cta-btn yellow-btn fade-up" onclick="showSignup(event)">
+                Activer mon assistant
+                <span class="arrow">→</span>
+            </a>
+        </div>
     </section>
     
-    <!-- PROBLEM -->
+    <!-- PAIN -->
     <section>
-        <p class="big-text fade-up">
-            <span class="highlight">23h, au lit.</span><br>
-            Votre cerveau <span class="emoji">🧠</span> tourne encore.
-        </p>
-        <p class="medium-text fade-up">
-            "Faut que je rappelle ce client <span class="emoji">📞</span> demain."<br>
-            "Le devis, j'ai envoyé ou pas ? <span class="emoji">📄</span>"<br>
-            "Merde, j'ai oublié ce mail <span class="emoji">📧</span> important."
-        </p>
-        <p class="body-text fade-up">
-            La charge mentale vous bouffe.<br>
-            Les oublis vous coûtent des clients.<br>
-            Vous n'avez pas créé votre boîte pour ça.
-        </p>
+        <div class="container">
+            <p class="big-text fade-up">
+                <span class="muted">23h. Au lit.</span><br>
+                Votre cerveau tourne <span class="emoji">🔄</span> encore.
+            </p>
+            <div class="pain-list">
+                <div class="pain-item fade-up">
+                    <span class="pain-icon">📞</span>
+                    <p><strong>"Faut que je rappelle ce client demain matin."</strong></p>
+                </div>
+                <div class="pain-item fade-up">
+                    <span class="pain-icon">📄</span>
+                    <p><strong>"Le devis Dupont, envoyé ou pas ?"</strong></p>
+                </div>
+                <div class="pain-item fade-up">
+                    <span class="pain-icon">📧</span>
+                    <p><strong>"Merde, j'ai oublié de répondre à ce mail."</strong></p>
+                </div>
+            </div>
+            <div class="highlight-box fade-up">
+                <p>La charge mentale vous bouffe. Les oublis vous coûtent des clients. Vous n'avez pas créé votre boîte pour ça.</p>
+            </div>
+        </div>
     </section>
     
-    <!-- SOLUTION INTRO -->
+    <!-- SOLUTION -->
     <section>
-        <p class="big-text fade-up">
-            Et si quelqu'un <span class="emoji">✨</span><br>
-            pensait à <span class="yellow">votre place</span> ?
-        </p>
-    </section>
-    
-    <!-- THE REVEAL -->
-    <section>
-        <p class="section-label fade-up">Rencontrez</p>
-        <p class="big-text fade-up">
-            <span class="yellow">Kululu</span> <span class="emoji">🔮</span>
-        </p>
-        <p class="medium-text fade-up">
-            L'assistant IA qui <span class="emoji">🧠</span> mémorise,<br>
-            <span class="emoji">⏰</span> rappelle et <span class="emoji">✍️</span> rédige<br>
-            pour vous.
-        </p>
-        <p class="body-text fade-up">
-            Sur Telegram. Comme un contact.<br>
-            Disponible 24h/24. Sans app à installer.
-        </p>
+        <div class="container">
+            <p class="big-text fade-up">
+                Et si quelqu'un <span class="emoji">✨</span><br>
+                <span class="yellow">pensait à votre place ?</span>
+            </p>
+            <p class="medium-text fade-up">
+                Kululu retient <span class="emoji">🧠</span> ce que vous oubliez.<br>
+                Vous rappelle <span class="emoji">⏰</span> au bon moment.<br>
+                Rédige <span class="emoji">✍️</span> en 10 secondes.
+            </p>
+        </div>
     </section>
     
     <!-- DEMO -->
-    <div class="demo-section">
-        <p class="medium-text fade-up" style="text-align: center;">
-            Vous lui parlez. <span class="emoji">💬</span><br>
-            Il agit.
-        </p>
-        <div class="phone-mockup fade-up">
-            <div class="phone-screen">
-                <div class="phone-header">
-                    <div class="phone-avatar">🔮</div>
-                    <div>
-                        <div class="phone-name">Kululu</div>
-                        <div class="phone-status">● En ligne</div>
-                    </div>
-                </div>
-                <div class="chat-messages">
-                    <div class="chat-msg user">Rappelle-moi d'appeler Dupont lundi 9h</div>
-                    <div class="chat-msg bot">C'est noté ! Je te ping lundi à 9h00 pour appeler Dupont. 🔮</div>
-                    <div class="chat-msg user">Prépare un mail de relance pour lui</div>
-                    <div class="chat-msg bot">Voilà :<br><br>Objet : Suite à notre échange<br><br>Bonjour M. Dupont,<br><br>Je me permets de revenir vers vous concernant...</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- FEATURES -->
     <section>
-        <p class="big-text fade-up">
-            Ce que Kululu <span class="emoji">🔮</span><br>
-            fait pour vous.
-        </p>
-        <div class="features-grid">
-            <div class="feature-item fade-up">
-                <span class="feature-icon">🧠</span>
-                <div class="feature-content">
-                    <h3>Il se souvient de tout</h3>
-                    <p>Vos clients, vos projets, vos préférences. Plus besoin de répéter. Il connaît votre contexte.</p>
-                </div>
-            </div>
-            <div class="feature-item fade-up">
-                <span class="feature-icon">⏰</span>
-                <div class="feature-content">
-                    <h3>Il vous rappelle</h3>
-                    <p>"Rappelle-moi vendredi pour la facture" — Vendredi, vous recevez le message. Zéro effort.</p>
-                </div>
-            </div>
-            <div class="feature-item fade-up">
-                <span class="feature-icon">✍️</span>
-                <div class="feature-content">
-                    <h3>Il rédige pour vous</h3>
-                    <p>Emails, messages, devis. Dictez l'idée, il écrit. Vous validez, c'est prêt.</p>
-                </div>
-            </div>
-            <div class="feature-item fade-up">
-                <span class="feature-icon">🔍</span>
-                <div class="feature-content">
-                    <h3>Il cherche pour vous</h3>
-                    <p>Besoin d'une info ? Il fouille le web et vous synthétise l'essentiel en secondes.</p>
+        <div class="container">
+            <div class="demo-section">
+                <p class="medium-text fade-up" style="text-align: center; margin-bottom: 0;">
+                    Vous parlez <span class="emoji">💬</span> Il agit.
+                </p>
+                <div class="phone-mockup fade-up">
+                    <div class="phone-screen">
+                        <div class="phone-header">
+                            <div class="phone-avatar"></div>
+                            <div>
+                                <div class="phone-name">Kululu</div>
+                                <div class="phone-status">● En ligne</div>
+                            </div>
+                        </div>
+                        <div class="chat-messages">
+                            <div class="chat-msg user">Rappelle-moi d'appeler Dupont lundi 9h</div>
+                            <div class="chat-msg bot">Noté ! Je te ping lundi 9h pour appeler Dupont ✓</div>
+                            <div class="chat-msg user">Rédige un mail de relance pour lui</div>
+                            <div class="chat-msg bot">Voilà :<br><br><strong>Objet :</strong> Suite à notre échange<br><br>Bonjour M. Dupont,<br>Je me permets de revenir vers vous...</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- TRANSFORMATION -->
+    <!-- FEATURES -->
     <section>
-        <p class="big-text fade-up">
-            Avant <span class="emoji">😩</span> / Après <span class="emoji">😌</span>
-        </p>
-        <div class="features-grid">
-            <div class="feature-item fade-up">
-                <span class="feature-icon">❌</span>
-                <div class="feature-content">
-                    <h3>Avant Kululu</h3>
-                    <p>Notes partout, oublis fréquents, 23h à ruminer, charge mentale permanente, clients perdus.</p>
+        <div class="container">
+            <p class="big-text fade-up">
+                Ce que Kululu fait<br>
+                <span class="underline-yellow">pour vous.</span>
+            </p>
+            <div class="features-grid">
+                <div class="feature-item fade-up">
+                    <div class="feature-icon">🧠</div>
+                    <div class="feature-content">
+                        <h3>Mémoire parfaite</h3>
+                        <p>Vos clients, projets, préférences. Il retient tout pour vous. Plus besoin de répéter.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="feature-item fade-up">
-                <span class="feature-icon">✅</span>
-                <div class="feature-content">
-                    <h3>Après Kululu</h3>
-                    <p>Un seul endroit, zéro oubli, esprit libre, sommeil tranquille, rien ne passe entre les mailles.</p>
+                <div class="feature-item fade-up">
+                    <div class="feature-icon">⏰</div>
+                    <div class="feature-content">
+                        <h3>Rappels malins</h3>
+                        <p>"Rappelle-moi vendredi pour la facture" — Vendredi, il ping. Zéro charge mentale.</p>
+                    </div>
+                </div>
+                <div class="feature-item fade-up">
+                    <div class="feature-icon">✍️</div>
+                    <div class="feature-content">
+                        <h3>Rédaction instantanée</h3>
+                        <p>Emails, messages, devis. Vous dictez l'idée, il écrit. 10 secondes.</p>
+                    </div>
+                </div>
+                <div class="feature-item fade-up">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-content">
+                        <h3>Recherche éclair</h3>
+                        <p>Besoin d'une info ? Il fouille le web et synthétise. Réponse en 30 secondes.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -690,39 +960,41 @@
     
     <!-- PRICING -->
     <section id="pricing">
-        <p class="big-text fade-up">
-            Le prix d'un café <span class="emoji">☕</span><br>
-            par jour.
-        </p>
-        <div class="pricing-card fade-up">
-            <div class="pricing-amount">97€</div>
-            <div class="pricing-period">/mois</div>
-            <p class="pricing-subtitle">Sans engagement · Annulable en 1 clic</p>
-            <div class="pricing-features">
-                <div class="pricing-feature"><span class="check">✓</span> Assistant personnalisé</div>
-                <div class="pricing-feature"><span class="check">✓</span> Disponible 24/7</div>
-                <div class="pricing-feature"><span class="check">✓</span> Messages illimités</div>
-                <div class="pricing-feature"><span class="check">✓</span> Rappels intelligents</div>
-                <div class="pricing-feature"><span class="check">✓</span> Mémoire permanente</div>
-                <div class="pricing-feature"><span class="check">✓</span> Recherche web</div>
+        <div class="container">
+            <p class="big-text fade-up">
+                Le prix d'un café <span class="emoji">☕</span><br>
+                <span class="muted">par jour.</span>
+            </p>
+            <div class="pricing-card fade-up">
+                <div class="pricing-amount">97€</div>
+                <div class="pricing-period">/mois</div>
+                <p class="pricing-subtitle">Sans engagement · Annulable en 1 clic</p>
+                <div class="pricing-features">
+                    <div class="pricing-feature"><span class="check">✓</span> Assistant dédié</div>
+                    <div class="pricing-feature"><span class="check">✓</span> Disponible 24/7</div>
+                    <div class="pricing-feature"><span class="check">✓</span> Messages illimités</div>
+                    <div class="pricing-feature"><span class="check">✓</span> Rappels intelligents</div>
+                    <div class="pricing-feature"><span class="check">✓</span> Mémoire permanente</div>
+                    <div class="pricing-feature"><span class="check">✓</span> Recherche web</div>
+                </div>
+                <a href="#signup" class="cta-btn yellow-btn" onclick="showSignup(event)" style="margin: 0; display: inline-flex;">
+                    Activer mon assistant
+                    <span class="arrow">→</span>
+                </a>
             </div>
-            <a href="#signup" class="cta-btn" onclick="showSignup(event)" style="margin: 0;">
-                Activer mon assistant
-                <span class="arrow">→</span>
-            </a>
         </div>
     </section>
     
     <!-- SIGNUP -->
-    <section class="signup-section" id="signup">
+    <section id="signup" class="signup-section">
         <div id="signup-form-container">
             <div class="signup-header">
-                <h2>Rejoindre Kululu 🔮</h2>
+                <h2>Rejoindre Kululu</h2>
                 <p>Activation sous 24h</p>
             </div>
             <form id="signup-form">
                 <div class="form-group">
-                    <label>Votre prénom</label>
+                    <label>Prénom *</label>
                     <input type="text" name="name" placeholder="Jean" required>
                 </div>
                 <div class="form-group">
@@ -737,64 +1009,72 @@
                         <option value="commerce">Commerce</option>
                         <option value="batiment">Bâtiment / Artisanat</option>
                         <option value="conseil">Conseil</option>
-                        <option value="sante">Santé</option>
                         <option value="autre">Autre</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
+                    <label>Email *</label>
                     <input type="email" name="email" placeholder="jean@entreprise.fr" required>
                 </div>
                 <button type="submit" class="form-submit">Envoyer ma demande</button>
             </form>
         </div>
         <div id="form-success" class="form-success">
-            <div class="icon">🔮</div>
+            <div class="icon">✅</div>
             <h3>C'est noté !</h3>
-            <p>On prépare votre Kululu.<br>Réponse sous 24h.</p>
+            <p>On prépare votre assistant.<br>Réponse sous 24h.</p>
         </div>
     </section>
     
     <!-- FAQ -->
     <section>
-        <p class="big-text fade-up">
-            Questions <span class="emoji">❓</span>
-        </p>
-        <div class="faq-grid">
-            <div class="faq-item fade-up">
-                <h3>C'est quoi exactement ?</h3>
-                <p>Un assistant IA personnel sur Telegram. Il mémorise votre contexte, vous envoie des rappels, rédige vos messages. Disponible 24/7.</p>
-            </div>
-            <div class="faq-item fade-up">
-                <h3>Différent de ChatGPT ?</h3>
-                <p>Oui. Kululu a une mémoire permanente et peut vous contacter proactivement. ChatGPT repart de zéro à chaque fois.</p>
-            </div>
-            <div class="faq-item fade-up">
-                <h3>Sécurisé ?</h3>
-                <p>Totalement. Données chiffrées, non partagées, jamais utilisées pour entraîner des modèles.</p>
-            </div>
-            <div class="faq-item fade-up">
-                <h3>Je peux annuler ?</h3>
-                <p>Oui, sans engagement. Un clic et c'est fait. Sans relance.</p>
+        <div class="container">
+            <p class="big-text fade-up">
+                Questions <span class="emoji">❓</span>
+            </p>
+            <div class="faq-grid">
+                <div class="faq-item fade-up">
+                    <h3>C'est quoi exactement ?</h3>
+                    <p>Un assistant IA personnel sur Telegram. Il retient votre contexte, envoie des rappels, rédige vos messages. Disponible 24/7.</p>
+                </div>
+                <div class="faq-item fade-up">
+                    <h3>Différent de ChatGPT ?</h3>
+                    <p>Oui. Kululu a une mémoire permanente et peut vous contacter de lui-même (rappels). ChatGPT oublie tout à chaque conversation.</p>
+                </div>
+                <div class="faq-item fade-up">
+                    <h3>Mes données sont sécurisées ?</h3>
+                    <p>100%. Chiffrées, non partagées, jamais utilisées pour entraîner des modèles. Confidentialité totale.</p>
+                </div>
+                <div class="faq-item fade-up">
+                    <h3>Je peux annuler quand je veux ?</h3>
+                    <p>Oui. Sans engagement, un clic et c'est fait. Sans justification, sans relance.</p>
+                </div>
             </div>
         </div>
     </section>
     
     <!-- FINAL CTA -->
     <section style="text-align: center;">
-        <p class="big-text fade-up">
-            Prêt à libérer <span class="emoji">✨</span><br>
-            votre <span class="yellow">esprit</span> ?
-        </p>
-        <a href="#signup" class="cta-btn fade-up" onclick="showSignup(event)">
-            Activer mon assistant
-            <span class="arrow">→</span>
-        </a>
+        <div class="container">
+            <p class="big-text fade-up">
+                Libérez votre <span class="emoji">🧠</span> esprit.<br>
+                <span class="underline-yellow">Activez Kululu.</span>
+            </p>
+            <a href="#signup" class="cta-btn yellow-btn fade-up" onclick="showSignup(event)">
+                Commencer maintenant
+                <span class="arrow">→</span>
+            </a>
+        </div>
     </section>
     
     <footer>
         <div class="footer-logo">
-            <span>🔮</span> Kululu
+            <div class="nav-glasses" style="width: 28px; height: 14px;">
+                <div class="nav-lens nav-lens-l" style="width: 12px; height: 12px;"></div>
+                <div class="nav-lens nav-lens-r" style="width: 12px; height: 12px;"></div>
+                <div class="nav-bridge" style="width: 5px;"></div>
+            </div>
+            Kululu
         </div>
         <p>© 2026 ENNEA Studio · <a href="mailto:contact@ennea.dev">contact@ennea.dev</a></p>
     </footer>
@@ -809,7 +1089,7 @@
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
         
         fadeElements.forEach(el => observer.observe(el));
         
