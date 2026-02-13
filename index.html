@@ -3,64 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kululu - L'Assistant IA Qui Pense Pour Vous</title>
-    <meta name="description" content="Ku ku ku... Votre assistant IA personnel sur Telegram. Machiavéliquement efficace.">
+    <title>Kululu - L'Assistant IA Pour Dirigeants Débordés</title>
+    <meta name="description" content="Arrêtez de tout porter seul. Kululu est l'assistant IA qui pense, rappelle et agit pour vous. 24/7 sur Telegram.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --kululu-yellow: #f7d731;
-            --kululu-dark-yellow: #c9a900;
+            --kululu-gold: #ffd700;
             --kululu-green: #7cb342;
-            --kululu-dark: #0d0d0d;
-            --kululu-darker: #080808;
-            --kululu-purple: #9c27b0;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --text: #e8e8e8;
+            --text-muted: #888;
             --glass: rgba(247, 215, 49, 0.03);
-            --glass-border: rgba(247, 215, 49, 0.1);
+            --glass-border: rgba(247, 215, 49, 0.08);
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         html { scroll-behavior: smooth; }
         
         body {
             font-family: 'Space Grotesk', sans-serif;
-            background: var(--kululu-darker);
-            color: #e8e8e8;
-            line-height: 1.6;
+            background: var(--darker);
+            color: var(--text);
+            line-height: 1.7;
             overflow-x: hidden;
         }
         
-        /* CURSOR TRAIL */
-        .cursor-glow {
-            position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(247,215,49,0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease-out;
-        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; }
+        .container-wide { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
         
-        /* SPIRAL BACKGROUND */
-        .spiral-bg {
+        /* PROGRESS BAR */
+        .progress-bar {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 150vmax;
-            height: 150vmax;
-            transform: translate(-50%, -50%);
-            background: conic-gradient(from 0deg, transparent 0deg, rgba(247,215,49,0.02) 10deg, transparent 20deg);
-            animation: spiralRotate 60s linear infinite;
-            pointer-events: none;
-            z-index: 0;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--kululu-yellow), var(--kululu-green));
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s;
         }
-        @keyframes spiralRotate { to { transform: translate(-50%, -50%) rotate(360deg); } }
-        
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
         
         /* NAV */
         nav {
@@ -70,536 +55,457 @@
             right: 0;
             padding: 20px 0;
             z-index: 1000;
-            background: rgba(8,8,8,0.8);
+            background: transparent;
+            transition: all 0.3s;
+        }
+        nav.scrolled {
+            background: rgba(5,5,5,0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
         }
-        nav .container {
+        nav .container-wide {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--kululu-yellow);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .nav-logo .spiral {
-            width: 36px;
-            height: 36px;
-            border: 3px solid var(--kululu-yellow);
+        .nav-spiral {
+            width: 28px;
+            height: 28px;
+            border: 2px solid var(--kululu-yellow);
             border-radius: 50%;
             position: relative;
-            animation: spiralPulse 2s ease-in-out infinite;
         }
-        .nav-logo .spiral::before {
+        .nav-spiral::before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 18px;
-            height: 18px;
+            width: 12px;
+            height: 12px;
             border: 2px solid var(--kululu-yellow);
             border-radius: 50%;
             transform: translate(-50%, -50%);
         }
-        .nav-logo .spiral::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            background: var(--kululu-yellow);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-        }
-        @keyframes spiralPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
         .nav-cta {
             background: var(--kululu-yellow);
-            color: var(--kululu-dark);
-            padding: 12px 28px;
-            border-radius: 30px;
+            color: var(--dark);
+            padding: 12px 24px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(-10px);
         }
-        .nav-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
+        nav.scrolled .nav-cta {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .nav-cta:hover::before { left: 100%; }
-        .nav-cta:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(247,215,49,0.4); }
+        .nav-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(247,215,49,0.3);
+        }
         
-        /* HERO */
-        .hero {
+        /* SECTIONS */
+        section {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 140px 0 100px;
             position: relative;
-        }
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-        .hero-content { z-index: 2; }
-        .hero-visual { position: relative; }
-        
-        .hero-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            color: var(--kululu-yellow);
-            margin-bottom: 24px;
-            animation: fadeInUp 0.6s ease-out;
-        }
-        .hero-tag .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--kululu-green);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+            padding: 100px 0;
         }
         
-        .hero h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            animation: fadeInUp 0.6s ease-out 0.1s both;
-        }
-        .hero h1 .line1 { color: #fff; display: block; }
-        .hero h1 .line2 {
-            display: block;
-            background: linear-gradient(135deg, var(--kululu-yellow), var(--kululu-green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: #a0a0a0;
-            margin-bottom: 16px;
-            animation: fadeInUp 0.6s ease-out 0.2s both;
-        }
-        .hero-kukuku {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--kululu-yellow);
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.6s ease-out 0.3s both;
-        }
-        
-        .hero-ctas {
+        /* ========== CHAPTER 1: THE HOOK ========== */
+        .chapter-hook {
+            min-height: 100vh;
             display: flex;
-            gap: 16px;
-            animation: fadeInUp 0.6s ease-out 0.4s both;
-        }
-        .btn-primary {
-            background: var(--kululu-yellow);
-            color: var(--kululu-dark);
-            padding: 18px 36px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(247,215,49,0.25);
-        }
-        .btn-ghost {
-            background: transparent;
-            border: 1px solid var(--glass-border);
-            color: #fff;
-            padding: 18px 36px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-        .btn-ghost:hover {
-            background: var(--glass);
-            border-color: var(--kululu-yellow);
-        }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* HERO VISUAL - KULULU GLASSES */
-        .kululu-visual {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1;
-            display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-        }
-        .glasses {
-            position: relative;
-            width: 300px;
-            height: 150px;
-            animation: float 4s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        .lens {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            border: 6px solid var(--kululu-yellow);
-            border-radius: 50%;
-            background: rgba(247,215,49,0.05);
-            backdrop-filter: blur(5px);
-        }
-        .lens::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 80px;
-            height: 80px;
-            border: 4px solid var(--kululu-yellow);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: spiralSpin 3s linear infinite;
-        }
-        .lens::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--kululu-yellow);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: spiralSpin 2s linear infinite reverse;
-        }
-        .lens-left { left: 0; top: 0; }
-        .lens-right { right: 0; top: 0; }
-        .bridge {
-            position: absolute;
-            top: 55px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 6px;
-            background: var(--kululu-yellow);
-            border-radius: 3px;
-        }
-        @keyframes spiralSpin {
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        
-        .glow-orbs {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            animation: orbFloat 6s ease-in-out infinite;
-        }
-        .orb-1 { width: 200px; height: 200px; background: rgba(247,215,49,0.3); top: 0; right: 0; animation-delay: 0s; }
-        .orb-2 { width: 150px; height: 150px; background: rgba(124,179,66,0.3); bottom: 20%; left: 10%; animation-delay: 2s; }
-        .orb-3 { width: 100px; height: 100px; background: rgba(156,39,176,0.2); top: 30%; left: 0; animation-delay: 4s; }
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(20px, -20px) scale(1.1); }
-        }
-        
-        /* PROOF BAR */
-        .proof-bar {
-            padding: 60px 0;
-            border-top: 1px solid var(--glass-border);
-            border-bottom: 1px solid var(--glass-border);
-            background: var(--glass);
-        }
-        .proof-items {
-            display: flex;
-            justify-content: center;
-            gap: 80px;
-            flex-wrap: wrap;
-        }
-        .proof-item {
             text-align: center;
-        }
-        .proof-item .value {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--kululu-yellow);
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .proof-item .label {
-            color: #666;
-            font-size: 0.95rem;
-            margin-top: 4px;
-        }
-        
-        /* PROBLEM SECTION */
-        .problem {
-            padding: 120px 0;
             position: relative;
         }
-        .section-header {
-            text-align: center;
-            margin-bottom: 64px;
-        }
-        .section-label {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--kululu-yellow);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-        }
-        .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 16px;
-        }
-        .section-desc {
-            color: #888;
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        .problem-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 40px;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .problem-card::before {
-            content: '';
+        .hook-bg {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--kululu-yellow), transparent);
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(247,215,49,0.05) 0%, transparent 60%);
+        }
+        .hook-question {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 32px;
             opacity: 0;
-            transition: opacity 0.4s;
+            transform: translateY(40px);
+            animation: fadeUp 1s ease-out 0.3s forwards;
         }
-        .problem-card:hover::before { opacity: 1; }
-        .problem-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(247,215,49,0.3);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        .hook-question em {
+            font-style: italic;
+            color: var(--kululu-yellow);
         }
-        .problem-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+        .hook-sub {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            opacity: 0;
+            animation: fadeUp 1s ease-out 0.6s forwards;
         }
-        .problem-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 12px;
+        .scroll-indicator {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            animation: fadeUp 1s ease-out 1s forwards;
         }
-        .problem-card p {
-            color: #888;
-            font-size: 1rem;
-            line-height: 1.7;
+        .scroll-indicator span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
-        
-        /* SOLUTION */
-        .solution {
-            padding: 120px 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(247,215,49,0.02) 50%, transparent 100%);
-        }
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-        }
-        .feature-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 48px;
-            transition: all 0.4s;
+        .scroll-arrow {
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--glass-border);
+            border-radius: 12px;
             position: relative;
         }
-        .feature-card:hover {
-            border-color: rgba(247,215,49,0.3);
-            transform: scale(1.02);
+        .scroll-arrow::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            width: 4px;
+            height: 8px;
+            background: var(--kululu-yellow);
+            border-radius: 2px;
+            transform: translateX(-50%);
+            animation: scrollBounce 1.5s infinite;
         }
-        .feature-card.featured {
-            grid-column: span 2;
-            background: linear-gradient(135deg, rgba(247,215,49,0.05), rgba(124,179,66,0.05));
-            border-color: rgba(247,215,49,0.2);
+        @keyframes scrollBounce {
+            0%, 100% { top: 8px; opacity: 1; }
+            50% { top: 18px; opacity: 0.5; }
         }
-        .feature-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(247,215,49,0.1);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 24px;
-        }
-        .feature-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-        .feature-card p {
-            color: #888;
-            font-size: 1.05rem;
-            line-height: 1.8;
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        /* DEMO SECTION */
-        .demo {
-            padding: 120px 0;
+        /* ========== CHAPTER 2: THE PAIN ========== */
+        .chapter-pain {
+            background: var(--dark);
         }
-        .demo-container {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 64px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: center;
+        .pain-content {
+            max-width: 800px;
         }
-        .demo-content h2 {
-            font-size: 2.5rem;
+        .chapter-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--kululu-yellow);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            opacity: 0.7;
+        }
+        .pain-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
             font-weight: 700;
-            color: #fff;
+            line-height: 1.3;
+            margin-bottom: 48px;
+        }
+        .pain-scenario {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.9;
+        }
+        .pain-scenario strong {
+            color: var(--text);
+        }
+        .pain-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        .pain-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 24px;
+            background: var(--glass);
+            border-left: 3px solid rgba(255,100,100,0.5);
+            border-radius: 0 12px 12px 0;
+        }
+        .pain-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        .pain-item p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        .pain-item p strong {
+            color: var(--text);
+        }
+        .pain-closing {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            border-top: 1px solid var(--glass-border);
+            padding-top: 40px;
+        }
+        .pain-closing em {
+            color: var(--kululu-yellow);
+            font-style: normal;
+        }
+        
+        /* ========== CHAPTER 3: THE TURNING POINT ========== */
+        .chapter-turning {
+            background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
+            text-align: center;
+        }
+        .turning-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .turning-question {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 48px;
+            line-height: 1.3;
+        }
+        .turning-question em {
+            font-style: italic;
+            color: var(--kululu-yellow);
+        }
+        .turning-imagine {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            line-height: 2;
+        }
+        .turning-imagine strong {
+            color: var(--text);
+        }
+        .turning-list {
+            text-align: left;
+            margin: 48px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .turning-item {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+        .turning-check {
+            color: var(--kululu-green);
+            font-size: 1.4rem;
+        }
+        
+        /* ========== CHAPTER 4: THE REVEAL ========== */
+        .chapter-reveal {
+            background: var(--darker);
+            overflow: hidden;
+        }
+        .reveal-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .reveal-intro {
+            font-size: 1.3rem;
+            color: var(--text-muted);
             margin-bottom: 24px;
         }
-        .demo-steps {
+        .reveal-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 8rem;
+            font-weight: 700;
+            color: var(--kululu-yellow);
+            margin-bottom: 16px;
+            text-shadow: 0 0 80px rgba(247,215,49,0.3);
+        }
+        .reveal-tagline {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+        }
+        .reveal-tagline em {
+            color: var(--text);
+            font-style: normal;
+        }
+        .reveal-kukuku {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--kululu-yellow);
+            opacity: 0.8;
+        }
+        
+        .glasses-visual {
+            position: relative;
+            width: 300px;
+            height: 160px;
+            margin: 60px auto 0;
+        }
+        .glasses-lens {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 4px solid var(--kululu-yellow);
+            border-radius: 50%;
+            background: rgba(247,215,49,0.03);
+        }
+        .glasses-lens::before, .glasses-lens::after {
+            content: '';
+            position: absolute;
+            border: 3px solid var(--kululu-yellow);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .glasses-lens::before { width: 60px; height: 60px; animation: spin 4s linear infinite; }
+        .glasses-lens::after { width: 24px; height: 24px; animation: spin 3s linear infinite reverse; }
+        .glasses-lens-left { left: 20px; top: 20px; }
+        .glasses-lens-right { right: 20px; top: 20px; }
+        .glasses-bridge {
+            position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--kululu-yellow);
+            border-radius: 2px;
+        }
+        @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+        
+        /* ========== CHAPTER 5: THE EXPERIENCE ========== */
+        .chapter-experience {
+            background: var(--dark);
+            padding: 120px 0;
+        }
+        .experience-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .experience-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            line-height: 1.3;
+        }
+        .experience-text h2 em {
+            color: var(--kululu-yellow);
+            font-style: italic;
+        }
+        .experience-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.9;
+        }
+        .experience-features {
             display: flex;
             flex-direction: column;
             gap: 24px;
         }
-        .demo-step {
+        .exp-feature {
             display: flex;
             gap: 20px;
             align-items: flex-start;
         }
-        .demo-step-num {
-            width: 40px;
-            height: 40px;
-            background: var(--kululu-yellow);
-            color: var(--kululu-dark);
-            border-radius: 50%;
+        .exp-feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(247,215,49,0.1);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
+            font-size: 1.3rem;
             flex-shrink: 0;
         }
-        .demo-step-content h4 {
-            color: #fff;
+        .exp-feature h4 {
             font-size: 1.1rem;
+            font-weight: 600;
             margin-bottom: 4px;
         }
-        .demo-step-content p {
-            color: #888;
+        .exp-feature p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
         
-        .demo-visual {
-            position: relative;
-        }
-        .phone-mockup {
-            background: #1a1a1a;
+        .phone-demo {
+            background: #111;
             border-radius: 40px;
-            padding: 12px;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+            padding: 16px;
+            box-shadow: 0 60px 120px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
         }
         .phone-screen {
-            background: #0d0d0d;
-            border-radius: 32px;
-            padding: 20px;
-            min-height: 500px;
+            background: var(--darker);
+            border-radius: 28px;
+            padding: 24px;
+            min-height: 520px;
         }
         .phone-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding-bottom: 16px;
+            gap: 14px;
+            padding-bottom: 20px;
             border-bottom: 1px solid var(--glass-border);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         .phone-avatar {
-            width: 44px;
-            height: 44px;
-            background: var(--kululu-yellow);
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--kululu-yellow), var(--kululu-green));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
         }
-        .phone-name {
-            font-weight: 600;
-            color: #fff;
-        }
-        .phone-status {
-            font-size: 0.85rem;
+        .phone-name { font-weight: 600; }
+        .phone-status { 
+            font-size: 0.85rem; 
             color: var(--kululu-green);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .phone-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--kululu-green);
+            border-radius: 50%;
         }
         .chat-messages {
             display: flex;
@@ -609,141 +515,308 @@
         .chat-msg {
             max-width: 85%;
             padding: 14px 18px;
-            border-radius: 18px;
+            border-radius: 20px;
             font-size: 0.95rem;
-            animation: messageIn 0.4s ease-out both;
-        }
-        .chat-msg.bot {
-            background: rgba(247,215,49,0.1);
-            border: 1px solid var(--glass-border);
-            color: #e8e8e8;
-            align-self: flex-start;
-            border-bottom-left-radius: 4px;
+            line-height: 1.5;
         }
         .chat-msg.user {
             background: var(--kululu-yellow);
-            color: var(--kululu-dark);
+            color: var(--dark);
             align-self: flex-end;
             border-bottom-right-radius: 4px;
         }
-        @keyframes messageIn {
-            from { opacity: 0; transform: translateY(10px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        .chat-msg.bot {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
         }
-        .chat-msg:nth-child(1) { animation-delay: 0.2s; }
-        .chat-msg:nth-child(2) { animation-delay: 0.6s; }
-        .chat-msg:nth-child(3) { animation-delay: 1s; }
-        .chat-msg:nth-child(4) { animation-delay: 1.4s; }
+        .chat-msg .kukuku {
+            color: var(--kululu-yellow);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
         
-        /* PRICING */
-        .pricing {
+        /* ========== CHAPTER 6: THE TRANSFORMATION ========== */
+        .chapter-transformation {
+            background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
             padding: 120px 0;
         }
-        .pricing-card {
-            max-width: 520px;
-            margin: 0 auto;
-            background: linear-gradient(135deg, rgba(247,215,49,0.08), rgba(124,179,66,0.05));
-            border: 2px solid rgba(247,215,49,0.3);
-            border-radius: 32px;
-            padding: 56px;
+        .transformation-header {
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 80px;
         }
-        .pricing-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(247,215,49,0.1), transparent 30%);
-            animation: pricingRotate 10s linear infinite;
+        .transformation-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
-        @keyframes pricingRotate { to { transform: rotate(360deg); } }
-        .pricing-content { position: relative; z-index: 1; }
-        .pricing-label {
+        .transformation-header p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+        }
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: stretch;
+        }
+        .ba-column {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+        }
+        .ba-column.before {
+            border-color: rgba(255,100,100,0.2);
+        }
+        .ba-column.after {
+            border-color: rgba(124,179,66,0.3);
+            background: linear-gradient(135deg, rgba(124,179,66,0.05), rgba(247,215,49,0.05));
+        }
+        .ba-label {
             font-family: 'JetBrains Mono', monospace;
-            color: var(--kululu-yellow);
-            font-size: 0.9rem;
-            margin-bottom: 8px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 24px;
+            opacity: 0.6;
         }
-        .pricing-price {
-            font-size: 5rem;
-            font-weight: 800;
-            color: #fff;
+        .ba-column.before .ba-label { color: #ff6b6b; }
+        .ba-column.after .ba-label { color: var(--kululu-green); }
+        .ba-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .ba-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+        .ba-item .icon { font-size: 1.2rem; flex-shrink: 0; }
+        .ba-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--kululu-yellow);
+        }
+        
+        /* ========== CHAPTER 7: THE PROOF ========== */
+        .chapter-proof {
+            background: var(--darker);
+            padding: 120px 0;
+        }
+        .proof-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .proof-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+        .testimonial {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 36px;
+            position: relative;
+        }
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 28px;
+            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--kululu-yellow);
+            opacity: 0.2;
             line-height: 1;
         }
-        .pricing-price span {
-            font-size: 1.5rem;
-            font-weight: 500;
-            color: #888;
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
         }
-        .pricing-subtitle {
-            color: #666;
-            margin-bottom: 40px;
-        }
-        .pricing-features {
-            text-align: left;
-            margin-bottom: 40px;
-        }
-        .pricing-features li {
-            list-style: none;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--glass-border);
+        .testimonial-author {
             display: flex;
             align-items: center;
             gap: 14px;
-            color: #ccc;
         }
-        .pricing-features li:last-child { border: none; }
-        .pricing-features .check {
-            color: var(--kululu-green);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        .pricing-cta {
-            width: 100%;
-            padding: 20px;
-            font-size: 1.2rem;
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--kululu-yellow), var(--kululu-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .testimonial-info .name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .testimonial-info .role {
+            font-size: 0.9rem;
+            color: var(--text-muted);
         }
         
-        /* SIGNUP */
-        .signup-section {
+        /* ========== CHAPTER 8: THE OFFER ========== */
+        .chapter-offer {
+            background: linear-gradient(180deg, var(--darker) 0%, var(--dark) 100%);
+            padding: 120px 0;
+        }
+        .offer-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .offer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+        .offer-title em {
+            color: var(--kululu-yellow);
+            font-style: italic;
+        }
+        .offer-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            margin-bottom: 60px;
+        }
+        .offer-card {
+            background: linear-gradient(135deg, rgba(247,215,49,0.08), rgba(124,179,66,0.05));
+            border: 2px solid rgba(247,215,49,0.25);
+            border-radius: 32px;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .offer-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: conic-gradient(from 0deg, transparent, rgba(247,215,49,0.03), transparent 20%);
+            animation: offerRotate 15s linear infinite;
+        }
+        @keyframes offerRotate { to { transform: rotate(360deg); } }
+        .offer-card-content {
+            position: relative;
+            z-index: 1;
+        }
+        .offer-price {
+            margin-bottom: 16px;
+        }
+        .offer-price .amount {
+            font-size: 5rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .offer-price .period {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+        }
+        .offer-price-sub {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        .offer-includes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            text-align: left;
+            margin-bottom: 40px;
+        }
+        .offer-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+        }
+        .offer-item .check {
+            color: var(--kululu-green);
+            font-size: 1.2rem;
+        }
+        .offer-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--kululu-yellow);
+            color: var(--dark);
+            padding: 20px 48px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .offer-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(247,215,49,0.3);
+        }
+        .offer-guarantee {
+            margin-top: 32px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        
+        /* ========== CHAPTER 9: THE SIGNUP ========== */
+        .chapter-signup {
+            background: var(--dark);
             padding: 120px 0;
             display: none;
         }
-        .signup-section.visible { display: block; }
+        .chapter-signup.visible { display: block; }
         .signup-card {
             max-width: 520px;
             margin: 0 auto;
             background: var(--glass);
             border: 1px solid var(--glass-border);
-            border-radius: 32px;
-            padding: 56px;
+            border-radius: 28px;
+            padding: 52px;
         }
         .signup-header {
             text-align: center;
             margin-bottom: 40px;
         }
         .signup-header h2 {
+            font-family: 'Playfair Display', serif;
             font-size: 2rem;
-            color: #fff;
             margin-bottom: 8px;
         }
         .signup-header p {
-            color: #888;
+            color: var(--text-muted);
         }
         .form-group {
             margin-bottom: 24px;
         }
         .form-group label {
             display: block;
-            color: #ccc;
             font-size: 0.95rem;
             font-weight: 500;
             margin-bottom: 10px;
+            color: var(--text);
         }
         .form-group input, .form-group select {
             width: 100%;
@@ -751,7 +824,7 @@
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--glass-border);
             border-radius: 12px;
-            color: #fff;
+            color: var(--text);
             font-size: 1rem;
             font-family: inherit;
             transition: all 0.3s;
@@ -759,16 +832,16 @@
         .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: var(--kululu-yellow);
-            background: rgba(247,215,49,0.05);
+            background: rgba(247,215,49,0.03);
         }
         .form-group input::placeholder { color: #555; }
         .form-group select { cursor: pointer; }
-        .form-group select option { background: var(--kululu-dark); }
+        .form-group select option { background: var(--dark); }
         .form-submit {
             width: 100%;
             padding: 18px;
             background: var(--kululu-yellow);
-            color: var(--kululu-dark);
+            color: var(--dark);
             border: none;
             border-radius: 12px;
             font-size: 1.1rem;
@@ -779,35 +852,38 @@
         }
         .form-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(247,215,49,0.3);
+            box-shadow: 0 15px 40px rgba(247,215,49,0.25);
         }
         .form-success {
             text-align: center;
-            padding: 40px;
+            padding: 40px 20px;
             display: none;
         }
         .form-success.visible { display: block; }
-        .form-success .icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-        }
+        .form-success .icon { font-size: 4rem; margin-bottom: 20px; }
         .form-success h3 {
-            font-size: 1.8rem;
-            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
             margin-bottom: 12px;
         }
-        .form-success p {
-            color: #888;
-        }
+        .form-success p { color: var(--text-muted); margin-bottom: 16px; }
         .form-success .kukuku {
             font-family: 'JetBrains Mono', monospace;
             color: var(--kululu-yellow);
-            margin-top: 20px;
         }
         
-        /* FAQ */
-        .faq {
+        /* ========== CHAPTER 10: FAQ ========== */
+        .chapter-faq {
+            background: var(--darker);
             padding: 120px 0;
+        }
+        .faq-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .faq-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
         }
         .faq-grid {
             display: grid;
@@ -823,17 +899,14 @@
             padding: 32px;
             transition: all 0.3s;
         }
-        .faq-item:hover {
-            border-color: rgba(247,215,49,0.2);
-        }
+        .faq-item:hover { border-color: rgba(247,215,49,0.2); }
         .faq-item h3 {
-            color: #fff;
             font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 12px;
         }
         .faq-item p {
-            color: #888;
+            color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.7;
         }
@@ -841,6 +914,7 @@
         /* FOOTER */
         footer {
             padding: 60px 0;
+            background: var(--darker);
             border-top: 1px solid var(--glass-border);
             text-align: center;
         }
@@ -851,7 +925,7 @@
             margin-bottom: 16px;
         }
         footer p {
-            color: #555;
+            color: #444;
             font-size: 0.9rem;
         }
         footer a {
@@ -859,260 +933,397 @@
             text-decoration: none;
         }
         
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
         /* RESPONSIVE */
         @media (max-width: 1024px) {
-            .hero-grid { grid-template-columns: 1fr; gap: 60px; }
-            .hero-visual { order: -1; }
-            .features-grid { grid-template-columns: 1fr; }
-            .feature-card.featured { grid-column: span 1; }
-            .demo-container { grid-template-columns: 1fr; }
-            .demo-visual { order: -1; }
+            .experience-grid { grid-template-columns: 1fr; gap: 60px; }
+            .before-after { grid-template-columns: 1fr; }
+            .ba-arrow { transform: rotate(90deg); padding: 20px 0; }
         }
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .section-title { font-size: 2.2rem; }
-            .problem-grid { grid-template-columns: 1fr; }
+            .hook-question { font-size: 2.8rem; }
+            .pain-title { font-size: 2.2rem; }
+            .turning-question { font-size: 2.5rem; }
+            .reveal-name { font-size: 4rem; }
+            .offer-title { font-size: 2.5rem; }
+            .testimonials { grid-template-columns: 1fr; }
             .faq-grid { grid-template-columns: 1fr; }
-            .proof-items { gap: 40px; }
-            .glasses { transform: scale(0.8); }
-            .pricing-card, .signup-card { padding: 40px 28px; }
+            .offer-includes { grid-template-columns: 1fr; }
+            .offer-card { padding: 40px 28px; }
+            .signup-card { padding: 36px 24px; }
         }
     </style>
 </head>
 <body>
-    <div class="cursor-glow" id="cursor-glow"></div>
-    <div class="spiral-bg"></div>
+    <div class="progress-bar" id="progress"></div>
     
-    <nav>
-        <div class="container">
+    <nav id="nav">
+        <div class="container-wide">
             <a href="#" class="nav-logo">
-                <div class="spiral"></div>
+                <div class="nav-spiral"></div>
                 Kululu
             </a>
-            <a href="#signup" class="nav-cta" onclick="showSignup(event)">Ku ku ku... Commencer</a>
+            <a href="#signup" class="nav-cta" onclick="showSignup(event)">Obtenir mon assistant</a>
         </div>
     </nav>
     
-    <section class="hero">
+    <!-- CHAPTER 1: THE HOOK -->
+    <section class="chapter-hook">
+        <div class="hook-bg"></div>
         <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="hero-tag">
-                        <span class="dot"></span>
-                        Assistant IA nouvelle génération
+            <h1 class="hook-question">
+                Et si vous n'aviez plus<br><em>à tout retenir ?</em>
+            </h1>
+            <p class="hook-sub">
+                Un assistant qui pense pour vous. Qui n'oublie jamais. Qui est là quand vous avez besoin.
+            </p>
+        </div>
+        <div class="scroll-indicator">
+            <span>Découvrir</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+    
+    <!-- CHAPTER 2: THE PAIN -->
+    <section class="chapter-pain">
+        <div class="container">
+            <div class="pain-content fade-in">
+                <div class="chapter-label">La réalité</div>
+                <h2 class="pain-title">Vous êtes dirigeant.<br>Pas super-héros.</h2>
+                <p class="pain-scenario">
+                    Il est 23h. Vous êtes au lit, mais votre cerveau tourne encore.<br>
+                    <strong>"Faut que je rappelle ce client demain."</strong><br>
+                    <strong>"Le devis pour Martin, j'ai envoyé ou pas ?"</strong><br>
+                    <strong>"Merde, j'ai oublié de répondre à ce mail important."</strong>
+                </p>
+                <div class="pain-list">
+                    <div class="pain-item">
+                        <span class="pain-icon">🧠</span>
+                        <p><strong>La charge mentale</strong> — Des dizaines de "faut pas oublier" qui tournent en boucle dans votre tête. Impossible de vraiment déconnecter.</p>
                     </div>
-                    <h1>
-                        <span class="line1">L'assistant qui</span>
-                        <span class="line2">pense pour vous</span>
-                    </h1>
-                    <p class="hero-subtitle">Machiavéliquement efficace. Disponible 24/7 sur Telegram.</p>
-                    <p class="hero-kukuku">Ku ku ku... Laissez-moi m'occuper de tout.</p>
-                    <div class="hero-ctas">
-                        <a href="#signup" class="btn-primary" onclick="showSignup(event)">
-                            Activer mon assistant →
+                    <div class="pain-item">
+                        <span class="pain-icon">⏰</span>
+                        <p><strong>Le temps qui file</strong> — Entre l'admin, les relances et les urgences, il ne reste plus rien pour le travail qui compte vraiment.</p>
+                    </div>
+                    <div class="pain-item">
+                        <span class="pain-icon">😤</span>
+                        <p><strong>Les oublis qui coûtent cher</strong> — Un client pas relancé, c'est une affaire perdue. Un rappel oublié, c'est la confiance qui s'effrite.</p>
+                    </div>
+                </div>
+                <p class="pain-closing">
+                    Vous n'avez pas créé votre boîte pour ça.<br>
+                    <em>Et si quelqu'un pouvait penser à votre place ?</em>
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CHAPTER 3: THE TURNING POINT -->
+    <section class="chapter-turning">
+        <div class="container">
+            <div class="turning-content fade-in">
+                <h2 class="turning-question">
+                    Imaginez un instant...<br><em>ne plus rien oublier.</em>
+                </h2>
+                <div class="turning-list">
+                    <div class="turning-item">
+                        <span class="turning-check">✓</span>
+                        <span>Vous dites "Rappelle-moi de facturer ce client vendredi" — <strong>c'est fait.</strong></span>
+                    </div>
+                    <div class="turning-item">
+                        <span class="turning-check">✓</span>
+                        <span>Vous demandez "Rédige un mail de relance" — <strong>il est prêt en 10 secondes.</strong></span>
+                    </div>
+                    <div class="turning-item">
+                        <span class="turning-check">✓</span>
+                        <span>Vous cherchez une info — <strong>elle arrive, synthétisée, claire.</strong></span>
+                    </div>
+                    <div class="turning-item">
+                        <span class="turning-check">✓</span>
+                        <span>Vous vous couchez tranquille — <strong>tout est géré.</strong></span>
+                    </div>
+                </div>
+                <p class="turning-imagine">
+                    Ce n'est pas de la science-fiction.<br>
+                    <strong>C'est Kululu.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CHAPTER 4: THE REVEAL -->
+    <section class="chapter-reveal">
+        <div class="container">
+            <div class="reveal-content fade-in">
+                <p class="reveal-intro">Rencontrez votre nouvel allié</p>
+                <h1 class="reveal-name">Kululu</h1>
+                <p class="reveal-tagline">L'assistant IA qui <em>pense pour vous.</em></p>
+                <p class="reveal-kukuku">Ku ku ku... Je n'oublie jamais rien.</p>
+                
+                <div class="glasses-visual">
+                    <div class="glasses-lens glasses-lens-left"></div>
+                    <div class="glasses-lens glasses-lens-right"></div>
+                    <div class="glasses-bridge"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CHAPTER 5: THE EXPERIENCE -->
+    <section class="chapter-experience">
+        <div class="container-wide">
+            <div class="experience-grid">
+                <div class="experience-text fade-in">
+                    <h2>Comme parler à un <em>bras droit</em> qui vous connaît</h2>
+                    <p class="experience-desc">
+                        Kululu est sur Telegram. Pas d'app à installer, pas d'interface compliquée.<br>
+                        Vous lui parlez comme à un contact. Et il répond. Instantanément.
+                    </p>
+                    <div class="experience-features">
+                        <div class="exp-feature">
+                            <div class="exp-feature-icon">🧠</div>
+                            <div>
+                                <h4>Il se souvient de tout</h4>
+                                <p>Vos clients, vos projets, vos préférences. Plus besoin de répéter.</p>
+                            </div>
+                        </div>
+                        <div class="exp-feature">
+                            <div class="exp-feature-icon">⏰</div>
+                            <div>
+                                <h4>Il vous rappelle au bon moment</h4>
+                                <p>Dites-lui quand. Il ping. Zéro effort de votre côté.</p>
+                            </div>
+                        </div>
+                        <div class="exp-feature">
+                            <div class="exp-feature-icon">✍️</div>
+                            <div>
+                                <h4>Il rédige pour vous</h4>
+                                <p>Emails, messages, devis. Vous validez, c'est envoyé.</p>
+                            </div>
+                        </div>
+                        <div class="exp-feature">
+                            <div class="exp-feature-icon">🔍</div>
+                            <div>
+                                <h4>Il trouve ce dont vous avez besoin</h4>
+                                <p>Recherches web, infos, contacts. Résultats en secondes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="phone-demo fade-in">
+                    <div class="phone-screen">
+                        <div class="phone-header">
+                            <div class="phone-avatar">🔮</div>
+                            <div>
+                                <div class="phone-name">Kululu</div>
+                                <div class="phone-status">En ligne</div>
+                            </div>
+                        </div>
+                        <div class="chat-messages">
+                            <div class="chat-msg user">Rappelle-moi d'appeler Dupont lundi 9h pour le devis</div>
+                            <div class="chat-msg bot">
+                                <span class="kukuku">Ku ku ku...</span> C'est noté ! Je te ping lundi 9h00 pour appeler Dupont au sujet du devis. 🔮
+                            </div>
+                            <div class="chat-msg user">Et prépare-moi un mail de relance pour lui</div>
+                            <div class="chat-msg bot">
+                                Voilà :<br><br>
+                                <strong>Objet :</strong> Suite à notre échange<br><br>
+                                Bonjour M. Dupont,<br><br>
+                                Je me permets de revenir vers vous concernant notre proposition du 5 février...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CHAPTER 6: THE TRANSFORMATION -->
+    <section class="chapter-transformation">
+        <div class="container-wide">
+            <div class="transformation-header fade-in">
+                <h2>Avant / Après Kululu</h2>
+                <p>La différence au quotidien</p>
+            </div>
+            <div class="before-after fade-in">
+                <div class="ba-column before">
+                    <div class="ba-label">Avant</div>
+                    <div class="ba-list">
+                        <div class="ba-item">
+                            <span class="icon">😩</span>
+                            <span>Vous notez partout, vous oubliez quand même</span>
+                        </div>
+                        <div class="ba-item">
+                            <span class="icon">🔄</span>
+                            <span>Vous passez 2h/jour sur l'admin et les relances</span>
+                        </div>
+                        <div class="ba-item">
+                            <span class="icon">😤</span>
+                            <span>Vous vous couchez en pensant à ce que vous avez oublié</span>
+                        </div>
+                        <div class="ba-item">
+                            <span class="icon">📱</span>
+                            <span>Notes ici, rappels là, emails ailleurs</span>
+                        </div>
+                        <div class="ba-item">
+                            <span class="icon">🧠</span>
+                            <span>Charge mentale permanente</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ba-arrow">→</div>
+                <div class="ba-column after">
+                    <div class="ba-label">Après</div>
+                    <div class="ba-list">
+                        <div class="ba-item">
+                            <span class="icon">✨</span>
+                            <span>Kululu retient tout — vous, plus rien</span>
+                        </div>
+                        <div class="ba-item">
+                            <span class="icon">⚡</span>
+                            <span>Les relances prennent 30 secondes</span>
+                        </div>
+                        <div class="ba-item">
+                            <span class="icon">😌</span>
+                            <span>Vous dormez tranquille — rien n'est oublié</span>
+                        </div>
+                        <div class="ba-item">
+                            <span class="icon">📱</span>
+                            <span>Un seul endroit : Telegram</span>
+                        </div>
+                        <div class="ba-item">
+                            <span class="icon">🧘</span>
+                            <span>Esprit libre pour ce qui compte</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CHAPTER 7: THE PROOF -->
+    <section class="chapter-proof">
+        <div class="container-wide">
+            <div class="proof-header fade-in">
+                <h2>Ce qu'ils en disent</h2>
+            </div>
+            <div class="testimonials fade-in">
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "En 2 semaines, j'ai récupéré au moins 1h par jour. Les rappels automatiques m'ont sauvé plusieurs contrats. C'est comme avoir une assistante qui ne dort jamais."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SL</div>
+                        <div class="testimonial-info">
+                            <div class="name">Sophie L.</div>
+                            <div class="role">Architecte d'intérieur, Lyon</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "Je gère 3 sociétés. Avant Kululu, je perdais des opportunités par oubli. Maintenant, rien ne passe entre les mailles. Et je rédige mes mails 10x plus vite."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MB</div>
+                        <div class="testimonial-info">
+                            <div class="name">Marc B.</div>
+                            <div class="role">Holding familiale, Paris</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "Le 'ku ku ku' me fait rire à chaque fois. Mais au-delà du fun, c'est devenu indispensable. Je lui parle plus qu'à mon agenda."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AT</div>
+                        <div class="testimonial-info">
+                            <div class="name">Amélie T.</div>
+                            <div class="role">Coach business, Bordeaux</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "97€/mois c'est rien comparé à ce que ça me rapporte. Un client pas oublié, c'est des milliers d'euros. Kululu se rembourse en une journée."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">JD</div>
+                        <div class="testimonial-info">
+                            <div class="name">Jean D.</div>
+                            <div class="role">Artisan électricien, Nantes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CHAPTER 8: THE OFFER -->
+    <section class="chapter-offer" id="pricing">
+        <div class="container">
+            <div class="offer-content fade-in">
+                <h2 class="offer-title">Prêt à <em>libérer votre esprit</em> ?</h2>
+                <p class="offer-subtitle">Le prix d'un café par jour pour un cerveau auxiliaire illimité.</p>
+                
+                <div class="offer-card">
+                    <div class="offer-card-content">
+                        <div class="offer-price">
+                            <span class="amount">97€</span>
+                            <span class="period">/mois</span>
+                        </div>
+                        <p class="offer-price-sub">Sans engagement · Annulable en 1 clic</p>
+                        
+                        <div class="offer-includes">
+                            <div class="offer-item"><span class="check">✓</span> Assistant personnalisé pour vous</div>
+                            <div class="offer-item"><span class="check">✓</span> Disponible 24h/24, 7j/7</div>
+                            <div class="offer-item"><span class="check">✓</span> Messages illimités</div>
+                            <div class="offer-item"><span class="check">✓</span> Rappels intelligents</div>
+                            <div class="offer-item"><span class="check">✓</span> Rédaction instantanée</div>
+                            <div class="offer-item"><span class="check">✓</span> Recherche web intégrée</div>
+                            <div class="offer-item"><span class="check">✓</span> Mémoire longue durée</div>
+                            <div class="offer-item"><span class="check">✓</span> Support prioritaire</div>
+                        </div>
+                        
+                        <a href="#signup" class="offer-cta" onclick="showSignup(event)">
+                            Activer mon assistant
+                            <span>→</span>
                         </a>
-                        <a href="#demo" class="btn-ghost">Voir en action</a>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="glow-orbs">
-                        <div class="orb orb-1"></div>
-                        <div class="orb orb-2"></div>
-                        <div class="orb orb-3"></div>
-                    </div>
-                    <div class="kululu-visual">
-                        <div class="glasses">
-                            <div class="lens lens-left"></div>
-                            <div class="lens lens-right"></div>
-                            <div class="bridge"></div>
-                        </div>
+                        
+                        <p class="offer-guarantee">🔒 Paiement sécurisé · Activation sous 24h</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="proof-bar">
-        <div class="container">
-            <div class="proof-items">
-                <div class="proof-item">
-                    <div class="value">24/7</div>
-                    <div class="label">Disponibilité</div>
-                </div>
-                <div class="proof-item">
-                    <div class="value">&lt;5s</div>
-                    <div class="label">Temps de réponse</div>
-                </div>
-                <div class="proof-item">
-                    <div class="value">∞</div>
-                    <div class="label">Mémoire</div>
-                </div>
-                <div class="proof-item">
-                    <div class="value">100%</div>
-                    <div class="label">Confidentiel</div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="problem">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">// Le problème</div>
-                <h2 class="section-title">Votre cerveau n'est pas fait pour ça</h2>
-                <p class="section-desc">Vous êtes dirigeant, pas gestionnaire de to-do lists.</p>
-            </div>
-            <div class="problem-grid">
-                <div class="problem-card">
-                    <div class="problem-icon">🧠</div>
-                    <h3>Charge mentale explosive</h3>
-                    <p>"Faut que je rappelle X", "Faut pas oublier Y"... Votre cerveau tourne en boucle au lieu de créer de la valeur.</p>
-                </div>
-                <div class="problem-card">
-                    <div class="problem-icon">⏰</div>
-                    <h3>Temps fragmenté</h3>
-                    <p>Entre les urgences, les relances et l'admin, il ne reste plus rien pour le vrai travail.</p>
-                </div>
-                <div class="problem-card">
-                    <div class="problem-icon">📱</div>
-                    <h3>Outils dispersés</h3>
-                    <p>Notes ici, rappels là, emails partout... Vous perdez du temps à chercher au lieu d'agir.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="solution">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">// La solution</div>
-                <h2 class="section-title">Kululu pense à votre place</h2>
-                <p class="section-desc">Un cerveau auxiliaire qui ne dort jamais.</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card featured">
-                    <div class="feature-icon">🧠</div>
-                    <h3>Mémoire parfaite</h3>
-                    <p>Kululu se souvient de tout. Vos clients, vos projets, vos préférences. Plus besoin de répéter. Il connaît votre contexte et s'y adapte.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⏰</div>
-                    <h3>Rappels proactifs</h3>
-                    <p>"Rappelle-moi de facturer Martin vendredi" — C'est noté. Vendredi, vous recevez le rappel. Zero effort.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">✍️</div>
-                    <h3>Rédaction instantanée</h3>
-                    <p>Emails, devis, réponses clients... Dictez l'idée, Kululu rédige. Vous validez, c'est envoyé.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Recherches éclairs</h3>
-                    <p>"Trouve-moi un transporteur frigo sur Lyon" — Résultats synthétisés en 30 secondes.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📱</div>
-                    <h3>Accessible partout</h3>
-                    <p>Sur Telegram, comme un contact. Pas d'app à installer. Du téléphone au bureau, il est là.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="demo" id="demo">
-        <div class="container">
-            <div class="demo-container">
-                <div class="demo-content">
-                    <h2>Prêt en 3 minutes</h2>
-                    <div class="demo-steps">
-                        <div class="demo-step">
-                            <div class="demo-step-num">1</div>
-                            <div class="demo-step-content">
-                                <h4>Inscrivez-vous</h4>
-                                <p>30 secondes. Juste votre nom et email.</p>
-                            </div>
-                        </div>
-                        <div class="demo-step">
-                            <div class="demo-step-num">2</div>
-                            <div class="demo-step-content">
-                                <h4>Recevez votre lien</h4>
-                                <p>On configure Kululu pour vous en moins de 24h.</p>
-                            </div>
-                        </div>
-                        <div class="demo-step">
-                            <div class="demo-step-num">3</div>
-                            <div class="demo-step-content">
-                                <h4>Dites "Salut"</h4>
-                                <p>Et c'est parti. Kululu apprend à chaque échange.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="demo-visual">
-                    <div class="phone-mockup">
-                        <div class="phone-screen">
-                            <div class="phone-header">
-                                <div class="phone-avatar">🔮</div>
-                                <div>
-                                    <div class="phone-name">Kululu</div>
-                                    <div class="phone-status">● En ligne</div>
-                                </div>
-                            </div>
-                            <div class="chat-messages">
-                                <div class="chat-msg user">Rappelle-moi de relancer le devis Dupont lundi 9h</div>
-                                <div class="chat-msg bot">Ku ku ku... C'est noté ! Je te ping lundi 9h00 pour le devis Dupont. Autre chose ? 🔮</div>
-                                <div class="chat-msg user">Rédige un email de relance pour ce devis</div>
-                                <div class="chat-msg bot">Voici l'email :<br><br>Objet : Suite à notre devis du 5/02<br><br>Bonjour M. Dupont,<br><br>Je me permets de revenir vers vous concernant notre proposition...</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">// Tarif</div>
-                <h2 class="section-title">Un investissement, pas une dépense</h2>
-                <p class="section-desc">Le prix d'un café par jour pour un assistant illimité.</p>
-            </div>
-            <div class="pricing-card">
-                <div class="pricing-content">
-                    <div class="pricing-label">ACCÈS COMPLET</div>
-                    <div class="pricing-price">97€<span>/mois</span></div>
-                    <div class="pricing-subtitle">Sans engagement • Annulable en 1 clic</div>
-                    <ul class="pricing-features">
-                        <li><span class="check">✓</span> Assistant personnalisé</li>
-                        <li><span class="check">✓</span> Disponible 24h/24</li>
-                        <li><span class="check">✓</span> Messages illimités</li>
-                        <li><span class="check">✓</span> Rappels intelligents</li>
-                        <li><span class="check">✓</span> Recherche web intégrée</li>
-                        <li><span class="check">✓</span> Mémoire longue durée</li>
-                        <li><span class="check">✓</span> Support prioritaire</li>
-                    </ul>
-                    <a href="#signup" class="btn-primary pricing-cta" onclick="showSignup(event)">Activer Kululu →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="signup-section" id="signup">
+    <!-- CHAPTER 9: SIGNUP -->
+    <section class="chapter-signup" id="signup">
         <div class="container">
             <div class="signup-card">
                 <div id="signup-form-container">
                     <div class="signup-header">
-                        <h2>Demande d'accès</h2>
-                        <p>Places limitées — Activation sous 24h</p>
+                        <h2>Rejoindre Kululu</h2>
+                        <p>Places limitées · Réponse sous 24h</p>
                     </div>
                     <form id="signup-form">
                         <div class="form-group">
-                            <label>Votre prénom *</label>
+                            <label>Votre prénom</label>
                             <input type="text" name="name" placeholder="Jean" required>
                         </div>
                         <div class="form-group">
-                            <label>Entreprise</label>
+                            <label>Votre entreprise</label>
                             <input type="text" name="company" placeholder="Dupont Services">
                         </div>
                         <div class="form-group">
@@ -1122,16 +1333,16 @@
                                 <option value="services">Services aux entreprises</option>
                                 <option value="commerce">Commerce</option>
                                 <option value="batiment">Bâtiment / Artisanat</option>
-                                <option value="conseil">Conseil</option>
-                                <option value="sante">Santé</option>
+                                <option value="conseil">Conseil / Consulting</option>
+                                <option value="sante">Santé / Bien-être</option>
                                 <option value="immobilier">Immobilier</option>
                                 <option value="tech">Tech / Digital</option>
                                 <option value="autre">Autre</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Email *</label>
-                            <input type="email" name="email" placeholder="jean@dupont.fr" required>
+                            <label>Email professionnel</label>
+                            <input type="email" name="email" placeholder="jean@entreprise.fr" required>
                         </div>
                         <button type="submit" class="form-submit">Envoyer ma demande</button>
                     </form>
@@ -1139,43 +1350,43 @@
                 <div id="form-success" class="form-success">
                     <div class="icon">🔮</div>
                     <h3>Demande reçue !</h3>
-                    <p>On prépare votre Kululu personnel.<br>Réponse sous 24h.</p>
-                    <p class="kukuku">Ku ku ku...</p>
+                    <p>On prépare votre Kululu personnel.<br>Activation sous 24h.</p>
+                    <p class="kukuku">Ku ku ku... À très vite.</p>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="faq">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">// FAQ</div>
-                <h2 class="section-title">Questions fréquentes</h2>
+    <!-- CHAPTER 10: FAQ -->
+    <section class="chapter-faq">
+        <div class="container-wide">
+            <div class="faq-header fade-in">
+                <h2>Questions fréquentes</h2>
             </div>
-            <div class="faq-grid">
+            <div class="faq-grid fade-in">
                 <div class="faq-item">
                     <h3>C'est quoi exactement Kululu ?</h3>
-                    <p>Un assistant IA personnel sur Telegram. Il mémorise votre contexte, vous envoie des rappels, rédige vos messages, fait des recherches. Le tout disponible 24/7.</p>
+                    <p>Un assistant IA personnel, disponible 24/7 sur Telegram. Il mémorise votre contexte, vous envoie des rappels, rédige vos messages, fait des recherches. Comme un bras droit qui ne dort jamais.</p>
                 </div>
                 <div class="faq-item">
                     <h3>Pourquoi Telegram ?</h3>
-                    <p>Simple, gratuit, et accessible partout. Pas d'app supplémentaire à installer. Vous lui parlez comme à un contact.</p>
+                    <p>Simple, gratuit, accessible partout. Pas d'app à installer. Vous lui parlez comme à un contact, depuis votre téléphone ou votre ordi.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>C'est quoi la différence avec ChatGPT ?</h3>
-                    <p>Kululu est personnalisé pour vous. Il a une mémoire permanente et peut vous contacter proactivement (rappels). ChatGPT repart de zéro à chaque conversation.</p>
+                    <h3>C'est différent de ChatGPT ?</h3>
+                    <p>Oui. Kululu est personnalisé pour vous — il a une mémoire permanente de vos échanges et peut vous contacter proactivement (rappels). ChatGPT repart de zéro à chaque conversation.</p>
                 </div>
                 <div class="faq-item">
                     <h3>Mes données sont sécurisées ?</h3>
-                    <p>Oui. Conversations chiffrées, données non partagées, non utilisées pour entraîner des modèles. Confidentialité totale.</p>
+                    <p>Totalement. Conversations chiffrées, données non partagées, non utilisées pour entraîner des modèles. Confidentialité absolue.</p>
                 </div>
                 <div class="faq-item">
                     <h3>Je peux annuler quand je veux ?</h3>
-                    <p>Oui, sans engagement. Annulation en 1 clic, sans justification, sans relance.</p>
+                    <p>Oui. Sans engagement, sans justification, sans relance. Un clic et c'est fait.</p>
                 </div>
                 <div class="faq-item">
                     <h3>Combien de temps pour démarrer ?</h3>
-                    <p>Inscription en 30 secondes. Activation sous 24h. Premier échange immédiat après.</p>
+                    <p>30 secondes d'inscription. Activation sous 24h. Premier échange immédiat après.</p>
                 </div>
             </div>
         </div>
@@ -1184,36 +1395,53 @@
     <footer>
         <div class="container">
             <div class="footer-logo">Kululu</div>
-            <p>© 2026 ENNEA Studio — <a href="mailto:contact@ennea.dev">contact@ennea.dev</a></p>
+            <p>© 2026 ENNEA Studio · <a href="mailto:contact@ennea.dev">contact@ennea.dev</a></p>
         </div>
     </footer>
     
     <script>
-        // Cursor glow effect
-        const cursorGlow = document.getElementById('cursor-glow');
-        let mouseX = 0, mouseY = 0;
-        let glowX = 0, glowY = 0;
+        // Progress bar
+        const progressBar = document.getElementById('progress');
         
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            progressBar.style.width = progress + '%';
+            
+            // Nav background
+            const nav = document.getElementById('nav');
+            if (scrollTop > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
         });
         
-        function animateGlow() {
-            glowX += (mouseX - glowX) * 0.1;
-            glowY += (mouseY - glowY) * 0.1;
-            cursorGlow.style.left = glowX + 'px';
-            cursorGlow.style.top = glowY + 'px';
-            requestAnimationFrame(animateGlow);
-        }
-        animateGlow();
+        // Fade in on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        fadeElements.forEach(el => fadeObserver.observe(el));
         
         // Show signup
         function showSignup(e) {
             e.preventDefault();
-            document.getElementById('signup').classList.add('visible');
+            const signup = document.getElementById('signup');
+            signup.classList.add('visible');
             setTimeout(() => {
-                document.getElementById('signup').scrollIntoView({ behavior: 'smooth' });
+                signup.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 100);
         }
         
@@ -1227,24 +1455,6 @@
             
             document.getElementById('signup-form-container').style.display = 'none';
             document.getElementById('form-success').classList.add('visible');
-        });
-        
-        // Intersection observer for animations
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('.problem-card, .feature-card, .faq-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-            observer.observe(el);
         });
     </script>
 </body>
