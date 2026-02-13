@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENNEA Studio - Votre Assistant IA Personnel</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        header { text-align: center; padding: 60px 0 40px; }
+        .logo { font-size: 2.5rem; font-weight: 700; color: #00d4ff; }
+        .tagline { font-size: 1.2rem; color: #a0a0a0; margin-top: 10px; }
+        .hero { text-align: center; padding: 40px 0; }
+        .hero h1 { font-size: 2.8rem; line-height: 1.3; margin-bottom: 20px; }
+        .hero h1 span { color: #00d4ff; }
+        .hero p { font-size: 1.2rem; color: #c0c0c0; max-width: 600px; margin: 0 auto 30px; }
+        .price-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin: 40px 0;
+        }
+        .price { font-size: 4rem; font-weight: 700; color: #00d4ff; }
+        .price span { font-size: 1.5rem; color: #a0a0a0; }
+        .price-sub { color: #a0a0a0; margin-top: 10px; }
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 40px 0; }
+        .feature { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 25px; }
+        .feature-icon { font-size: 2rem; margin-bottom: 10px; }
+        .feature h3 { margin-bottom: 8px; }
+        .feature p { color: #a0a0a0; font-size: 0.95rem; }
+        .cta-section { text-align: center; padding: 40px 0; }
+        .cta-btn {
+            display: inline-block;
+            background: #00d4ff;
+            color: #1a1a2e;
+            padding: 18px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,212,255,0.3); }
+        .how-it-works { padding: 40px 0; }
+        .how-it-works h2 { text-align: center; margin-bottom: 30px; font-size: 2rem; }
+        .steps { display: flex; flex-direction: column; gap: 20px; }
+        .step { display: flex; align-items: center; gap: 20px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 12px; }
+        .step-num { background: #00d4ff; color: #1a1a2e; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
+        .step-content h3 { margin-bottom: 5px; }
+        .step-content p { color: #a0a0a0; }
+        footer { text-align: center; padding: 40px 0; color: #606060; }
+        .signup-section { padding: 40px 0; }
+        input, button { width: 100%; }
+        @media (max-width: 600px) { .hero h1 { font-size: 2rem; } .price { font-size: 3rem; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">ENNEA Studio</div>
+            <div class="tagline">Intelligence artificielle pour dirigeants</div>
+        </header>
+        <section class="hero">
+            <h1>Votre <span>assistant personnel</span><br>disponible 24/7</h1>
+            <p>Un assistant IA qui vous connaît, comprend votre business, et vous aide au quotidien. Directement sur Telegram.</p>
+        </section>
+        <div class="price-card">
+            <div class="price">97€<span>/mois</span></div>
+            <div class="price-sub">Sans engagement • Annulable à tout moment</div>
+        </div>
+        <section class="features">
+            <div class="feature"><div class="feature-icon">🧠</div><h3>Il vous connaît</h3><p>Votre assistant apprend vos préférences, votre contexte, votre façon de travailler.</p></div>
+            <div class="feature"><div class="feature-icon">⏰</div><h3>Rappels intelligents</h3><p>Ne ratez plus jamais un RDV ou une échéance. Il vous rappelle au bon moment.</p></div>
+            <div class="feature"><div class="feature-icon">✍️</div><h3>Rédaction</h3><p>Emails, messages, devis... Il rédige pour vous en respectant votre ton.</p></div>
+            <div class="feature"><div class="feature-icon">🔍</div><h3>Recherches</h3><p>Besoin d'une info ? Il cherche sur le web et vous synthétise l'essentiel.</p></div>
+            <div class="feature"><div class="feature-icon">📱</div><h3>Sur Telegram</h3><p>Accessible depuis votre téléphone, comme un contact. Simple et rapide.</p></div>
+            <div class="feature"><div class="feature-icon">🔒</div><h3>100% privé</h3><p>Vos données restent les vôtres. Confidentialité totale garantie.</p></div>
+        </section>
+        <section class="how-it-works">
+            <h2>Comment ça marche ?</h2>
+            <div class="steps">
+                <div class="step"><div class="step-num">1</div><div class="step-content"><h3>Inscription</h3><p>Remplissez le formulaire avec vos infos basiques</p></div></div>
+                <div class="step"><div class="step-num">2</div><div class="step-content"><h3>Activation</h3><p>On configure votre assistant et on vous envoie le lien Telegram</p></div></div>
+                <div class="step"><div class="step-num">3</div><div class="step-content"><h3>C'est parti</h3><p>Dites bonjour à votre assistant et commencez à travailler ensemble</p></div></div>
+            </div>
+        </section>
+        <section class="cta-section">
+            <a href="#signup" class="cta-btn" id="cta-btn">Démarrer maintenant →</a>
+            <p style="margin-top: 20px; color: #606060;">Places limitées • Activation sous 24h</p>
+        </section>
+        <section id="signup" class="signup-section" style="display: none;">
+            <div class="price-card">
+                <h2 style="margin-bottom: 20px;">Demande d'accès</h2>
+                <form id="signup-form" style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto;">
+                    <input type="text" name="name" placeholder="Votre prénom" required style="padding: 15px; border-radius: 10px; border: none; font-size: 1rem;">
+                    <input type="text" name="company" placeholder="Nom de votre entreprise" required style="padding: 15px; border-radius: 10px; border: none; font-size: 1rem;">
+                    <input type="email" name="email" placeholder="Email" required style="padding: 15px; border-radius: 10px; border: none; font-size: 1rem;">
+                    <input type="tel" name="phone" placeholder="Téléphone (optionnel)" style="padding: 15px; border-radius: 10px; border: none; font-size: 1rem;">
+                    <button type="submit" style="padding: 15px; border-radius: 30px; border: none; background: #00d4ff; color: #1a1a2e; font-size: 1.1rem; font-weight: 600; cursor: pointer;">Envoyer ma demande</button>
+                </form>
+                <p id="form-success" style="display: none; margin-top: 20px; color: #00ff88;">✓ Demande envoyée ! On vous contacte sous 24h.</p>
+            </div>
+        </section>
+        <footer><p>ENNEA Studio © 2026 • contact@ennea.dev</p></footer>
+    </div>
+    <script>
+        document.getElementById('cta-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('signup').style.display = 'block';
+            document.getElementById('signup').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('signup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = Object.fromEntries(new FormData(form));
+            console.log('Signup:', data);
+            form.style.display = 'none';
+            document.getElementById('form-success').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
